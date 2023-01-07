@@ -6,22 +6,10 @@ import java.util.List;
 public class FileNavigator {
     private HashMap<String, ArrayList<FileData>> fileDataHashMap = new HashMap<>();
 
-    @Override
-    public String toString() {
-        return "FileNavigator{" +
-                "fileDataHashMap="+"\n"+ fileDataHashMap+
-                '}';
-    }
-
-    public FileNavigator(HashMap<String, ArrayList<FileData>> fileDataHashMap) {
-        this.fileDataHashMap = fileDataHashMap;
-    }
-
-    public FileNavigator() {
-    }
-
-
-    public void add(String path, FileData file) {
+    public void add(String path, FileData file) throws Exception {
+        if(!path.equals(file.getPath())){
+            throw new Exception();
+        }
         if (fileDataHashMap.containsKey(path)) {
             fileDataHashMap.get(file.getPath()).add(file);
         } else {
@@ -61,5 +49,19 @@ public class FileNavigator {
         }
         arrayList.sort(Comparator.comparing(FileData::getSize));
         return arrayList;
+    }
+
+    @Override
+    public String toString() {
+        return "FileNavigator{" +
+                "fileDataHashMap="+"\n"+ fileDataHashMap+
+                '}';
+    }
+
+    public FileNavigator(HashMap<String, ArrayList<FileData>> fileDataHashMap) {
+        this.fileDataHashMap = fileDataHashMap;
+    }
+
+    public FileNavigator() {
     }
 }
